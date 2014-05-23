@@ -1,0 +1,79 @@
+{
+  "name": "Freesound Supermod",
+  "version": "1.0.0",
+  "manifest_version": 2,
+  "description": "Automatization for moderation on Freesound.",
+  "web_accessible_resources": [ "bgdark.png", "bglight.png" ],
+  "icons": {
+  //  "16": "icon16.png",
+  //  "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  "background": {"persistent": false, "scripts": ["background.js"]},
+  "content_scripts": [
+    {
+      "matches": [
+        "http://www.freesound.org/tickets/moderation/assigned/*/*",
+        "http://freesound.org/tickets/moderation/assigned/*/*",
+        "https://www.freesound.org/tickets/moderation/assigned/*/*",
+        "https://freesound.org/tickets/moderation/assigned/*/*"
+      ],
+      "js": [
+        "scripts/jquery-1.11.1.min.js",
+        "queue.js"
+      ],
+      "run_at": "document_end"
+    },
+    {
+      "matches": [
+        "http://www.freesound.org/tickets/moderation/",
+        "http://freesound.org/tickets/moderation/",
+        "https://www.freesound.org/tickets/moderation/",
+        "https://freesound.org/tickets/moderation/"
+      ],
+      "js": [
+        "scripts/jquery-1.11.1.min.js",
+        "moderation.js"
+      ],
+      "run_at": "document_end"
+    },
+    {
+      "matches": [
+        "http://www.freesound.org/tickets/",
+        "http://freesound.org/tickets/",
+        "https://www.freesound.org/tickets/",
+        "https://freesound.org/tickets/"
+      ],
+      "js": [
+        "scripts/jquery-1.11.1.min.js",
+        "home.js"
+      ],
+      "run_at": "document_end"
+    },
+    {
+      "matches": [
+        "http://www.freesound.org/tickets/*/",
+        "http://freesound.org/tickets/*/",
+        "https://www.freesound.org/tickets/*/",
+        "https://freesound.org/tickets/*/"
+      ],
+      "js": [
+        "scripts/jquery-1.11.1.min.js",
+        "tickets.js"
+      ],
+      "run_at": "document_end"
+    }
+  ],
+	"permissions": [
+    "downloads",
+    "activeTab",
+    "storage",
+    "tabs"
+	]
+  //"browser_action": {
+  //  "default_icon": "icon128.png",
+  //  "scripts": ["click.js"],
+  //  "default_popup": "popup.html",
+  //  "default_title": "View Moderation Summary"
+  //}
+}
