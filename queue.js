@@ -609,11 +609,10 @@ function autoModerate() {
     var ticket = $("#assigned-tickets-table-wrapper table tbody tr td:nth-child(1) a").attr("onclick").toString().split("tickets/")[1].split("/')")[0];
 
     // sound ticket decision
-    var decisionTicket = decisionsTickets[ticket];
-    var decision = decisions[decisionTicket]
+    var decision = decisionsTickets[ticket];
 
     // if top sound has a decision
-    if (typeof decisionTicket != "undefined" && decision != "nothing") {
+    if (typeof decision != "undefined" && decision != "nothing") {
       
       // make background pink when automatic action is ongoing
       $('#wrapper').css('background-color', 'pink');
