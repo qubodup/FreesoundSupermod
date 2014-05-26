@@ -1,6 +1,6 @@
 {
   "name": "Freesound Supermod",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "manifest_version": 2,
   "description": "Automatization for moderation on Freesound.",
   "web_accessible_resources": [ "bgdark.png", "bglight.png" ],
@@ -33,7 +33,8 @@
       ],
       "js": [
         "scripts/jquery-1.11.1.min.js",
-        "moderation.js"
+        "moderation.js",
+        "tardy.js"
       ],
       "run_at": "document_end"
     },
@@ -60,6 +61,23 @@
       "js": [
         "scripts/jquery-1.11.1.min.js",
         "tickets.js"
+      ],
+      "run_at": "document_end"
+    },
+    {
+      "matches": [
+        "http://www.freesound.org/tickets/moderation/tardy_moderators_sounds/*",
+        "http://freesound.org/tickets/moderation/tardy_moderators_sounds/*",
+        "https://www.freesound.org/tickets/moderation/tardy_moderators_sounds/*",
+        "https://freesound.org/tickets/moderation/tardy_moderators_sounds/*",
+        "http://www.freesound.org/tickets/moderation/tardy_users_sounds/*",
+        "http://freesound.org/tickets/moderation/tardy_users_sounds/*",
+        "https://www.freesound.org/tickets/moderation/tardy_users_sounds/*",
+        "https://freesound.org/tickets/moderation/tardy_users_sounds/*"
+      ],
+      "js": [
+        "scripts/jquery-1.11.1.min.js",
+        "tardy.js"
       ],
       "run_at": "document_end"
     }
