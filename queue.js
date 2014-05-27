@@ -594,6 +594,17 @@ $(rows).find('td:nth-child(1) a').bind('click', function(){
 
 });
 
+// submitting decision after changing and checking everything
+function decisionSubmit() {
+
+  // press button
+  $('input[value="send"]').select().click();
+
+  // disable all input while sending
+  $("input").prop("disabled", true);
+
+}
+
 // automatic sound moderation
 function autoModerate() {
 
@@ -626,30 +637,6 @@ function autoModerate() {
       // check whether the first sound ticket is selected
       var is_first = $("tr:nth-child(1)").hasClass("mod-selected-row");
 
-      if (decision.action == "accept") {
-        
-        // accept
-        $('#id_action_0').prop('checked', true);
-
-      } else if (decision.action == "defer" || decision.action == "spam") {
-
-        // defer
-        $('#id_action_2').prop('checked', true);
-
-        if (decision.action == "spam") {
-
-          // check moderator only checkbox
-          $('#id_moderator_only').prop('checked', true);
-
-        }
-
-      } else if (decision.action == "delete") {
-
-        // delete
-        $('#id_action_1').prop('checked', true);
-
-      }
-
       // "press" submit
       // make sure first row is selected for safety
 
@@ -660,17 +647,42 @@ function autoModerate() {
         if (modAuto && is_first && is_active ) {
 
           // insert message
-          var message = decision.message;
+          var message = decisions[decision].message;
           $('#id_message').val(message);
           $('#id_message').css('height', '200px');
 
-          // press button
-          $('input[value="send"]').select().click();
-          // needs jquery-ui, doesn't seem to be necessary
-          //trigger($.Event( 'keydown', {which:$.ui.keyCode.ENTER, keyCode:$.ui.keyCode.ENTER})).click();
+          var action = decisions[decision].action;
 
-          // disable all input while sending
-          $("input").prop("disabled", true);
+          // set approve/delete/defer radiobox
+          if (action == "accept") {
+
+            $('#id_action_0').prop('checked', true);
+            if ( $('#id_action_0').prop('checked') && $('#id_message').val() == message ) {
+              decisionSubmit();
+            }
+
+          } else if (action == "defer" || action == "spam") {
+
+            $('#id_action_2').prop('checked', true);
+
+            if (action == "spam") {
+
+              // check moderator only checkbox
+              $('#id_moderator_only').prop('checked', true);
+            }
+            if ( $('#id_action_2').prop('checked') && $('#id_message').val() == message ) {
+              decisionSubmit();
+            }
+
+          } else if (action == "delete") {
+
+            $('#id_action_1').prop('checked', true);
+            if ( $('#id_action_1').prop('checked') && $('#id_message').val() == message ) {
+              decisionSubmit();
+            }
+
+          }
+
         }
       });
     }

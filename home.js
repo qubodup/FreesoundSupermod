@@ -80,7 +80,9 @@ function showSettings() {
   <h3>Backup or restore settings</h3>\
   <p>This allows to save/restore settings and decision on other computer or after clearing browser data or an extension update.</p>\
   <p><button id="settings-save">Save</button>\
-  <input type="file" id="settings-file" /><button id="settings-load">Load</button></p>');
+  <input type="file" id="settings-file" /><button id="settings-load">Load</button>\
+  <button id="settings-compare">Compare</button><br />\
+  Compare shows lists sounds that are in local storage but not in the selected file, for debugging, in case the extension screwed up. Make a backup in case you press "load" by accident.</p>');
 
   // radio button interaction
   // http://stackoverflow.com/questions/4938876/jquery-find-id-of-clicked-button
@@ -144,6 +146,86 @@ function showSettings() {
           // refresh decisions and settings
           showSettings()
           showDecisions()
+
+        })
+
+
+      }
+
+      reader.onerror = function(stuff) {
+        console.log("error", stuff)
+        console.log (stuff.getMessage())
+      }
+
+      reader.readAsText(files[0]) //readAsdataURL
+
+    }
+
+  })
+
+  // lists decisions that are are new compared to the chosen old file
+  $('#settings-compare').bind('click', function(evt) {
+
+    // clear
+    $('#modCompare').remove();
+
+    var files = $("#settings-file")[0].files;
+
+    if (!files.length) {
+      alert('Please select a file!');
+    } else {
+
+      // read file
+      // http://stackoverflow.com/questions/4100927/chrome-filereader
+      var reader = new FileReader()
+
+      reader.onload = function(e) {
+
+        var settings = $.parseJSON(e.target.result)
+
+        // write settings
+        //chrome.storage.local.set(settings)
+        chrome.storage.local.get('decisionsTickets', function(data) {
+          var decisionsTickets = data.decisionsTickets;
+
+          // create object if it does not exist yet
+          if (jQuery.isEmptyObject(decisionsTickets)) { decisionsTickets = {}; };
+
+          // variables
+          var trAccept = "";
+          var trNonAccept = "";
+
+          // for each sound ticket decision
+          for (var ticket in decisionsTickets ) {
+
+            // variables
+            var decision = decisionsTickets[ticket];
+            var cssClass = decisionsMin[decision].cssClass;
+            var title = decisionsMin[decision].title;
+            var html = '<tr class="' + cssClass + '"><td>' + title + '</td><td><a href="/tickets/' + ticket + '/">' + ticket + '</a></td></tr>\n';
+
+            var match = (decisionsTickets[ticket] == settings.decisionsTickets[ticket]);
+          
+            if (!match) {
+              if (decisionsTickets[ticket] != "accept" && decisionsTickets[ticket] != "acceptDetails" ) {
+                trNonAccept = trNonAccept + html;
+
+              } else {
+                trAccept = trAccept + html;
+              }
+            }
+
+          }
+          
+          // show decision comparison
+          $("#container").append('<div id="modCompare">\
+          <h3>Non-accepted new tickets</h3>\
+          <table><th>Decision</th><th>Ticket</th>\
+          ' + trNonAccept + '</table>\
+          <h3>Accepted new tickets</h3>\
+          <table><th>Decision</th><th>Ticket</th>\
+          ' + trAccept + '</table>\
+          </div>');
 
         })
 
