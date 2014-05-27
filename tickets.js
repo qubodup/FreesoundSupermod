@@ -56,6 +56,23 @@ decisionsMin = {
   }
 }
 
+// indicate already processed sounds, helpful for quick checking of tickets
+
+// get ticket controls initial values
+// closed or deferred
+var status = $('#id_tm-status').val();
+// OK, PE or undefined
+var state = $('#id_ss-state').val();
+
+// change background color of form
+if ( status == "deferred" && state == "PE" ) {
+  $("#ticket-right form").addClass('decDfr');
+} else if ( status == "closed" && state =="OK" ) {
+  $("#ticket-right form").addClass('decAcc');
+} else if ( status == "closed" && !state ) {
+  $("#ticket-right form").addClass('decDel');
+}
+
 // get username of this ticket's sound's user
 var usernameField = $("#ticket-details-left li:nth-child(1)");
 var username = $(usernameField).children("a").text();

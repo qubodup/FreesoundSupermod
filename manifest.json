@@ -1,6 +1,6 @@
 {
   "name": "Freesound Supermod",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "manifest_version": 2,
   "description": "Automatization for moderation on Freesound.",
   "web_accessible_resources": [ "bgdark.png", "bglight.png" ],
