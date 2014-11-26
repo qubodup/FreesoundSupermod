@@ -105,7 +105,7 @@ $("#defer").after("<button class='decDel' id='delete'>Delete</button>");
 $("#ticket-page-form form input[type=submit]").after("<button class='decSpm' style='float: right' id='spam'>Spam</button>");
 $("#delete").after("<p>Accept sets to Closed/OK and sends.<br>Defer sets to Deferred/Pending and sends.<br>Delete sets to Closed/Delete and sends.</p>");
 $("#spam").after("<p style='clear:both;'>Spam writes 'spam' text, enables 'Moderator only' and sends. The moderator then should defer the sound and send the url of this ticket to the moderator mailing list.</p>");
-$("h3").eq(2).after("<button id='timout'>Timeout</button><p>Timeout writes the message 'Please update. This file will timeout in 2 weeks.' and sends it.</p>")
+$("h3").eq(2).after("<button id='timeout'>Timeout</button><p>Timeout writes the message 'Please update. This file will timeout in 2 weeks.' and sends it.</p>")
 // timeout warning button
 $('#timeout').click(function() {
   $('#id_message').val('Please update. This file will timeout in 2 weeks.');
