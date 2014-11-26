@@ -155,6 +155,18 @@ function sortByName( selElem ) {
 
 };
 
+// assign all sounds to self by creating iframe for each assign page
+// might break browser
+function assignAll( selElem ) {
+  for ( var i = 0; i < selElem.length; i++ ) {
+    var tmp = $("a", selElem[i]).last().attr('href');
+    $("#container h3").eq(1).after('<iframe style="width:100%;height:25px;" src="' + tmp + '" /></iframe>');
+
+  }
+  $('#assignall').after("<p>Wait until all slim iframes above have content loaded and then reload this page.</p>");
+  $('#assignall').remove();
+}
+
 // backup user 'list' for date sorting
 var userlist = $(".moderation-user-list .moderation-user-list-user");
 
@@ -169,6 +181,11 @@ $("#container h2").after('<form>Sort by \
 <label for="radioname">Username</label>\
 </form>');
 
+// HTML assign all interface
+$("#container h3").eq(1).before('<h3>Assign all</h3>\
+<p>Warning: this will create one iframe for each user that has sounds in the queue and might slow down or crash your browser.</p>\
+<button id="assignall">Assign all</button>');
+
 // radio button interaction
 $("#radiodate").bind('click', function(){
   sortByDate( userlist );
@@ -180,6 +197,11 @@ $("#radiocount").bind('click', function(){
 
 $("#radioname").bind('click', function(){
   sortByName( userlist );
+});
+
+// assign all interaction
+$("#assignall").bind('click', function(){
+  assignAll( userlist );
 });
 
 // check local storage
