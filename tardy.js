@@ -12,7 +12,6 @@ $("<style type='text/css'>\
 
 // moderator name
 var modName = $("#account_user").text();
-console.log(modName);
 
 // add tardy user/moderator colors
 $(".moderation-unsure-ticket").each(function (i, row) {
