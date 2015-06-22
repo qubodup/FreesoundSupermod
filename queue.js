@@ -70,6 +70,7 @@ tr.rowDfr.alternate-row-even {background-color: #ffcfcf;}\
 td { background-color: transparent !important; color: inherit !important; padding: 5px 4px 3px 4px !important; border-right: none; border-bottom: 1px solid transparent; white-space: nowrap; text-overflow: ellipsis;}\
 td.decNot { background-color: #CCCCCC !important; }\
 td.decAcc { background-color: #63E75C !important; }\
+td.decAcD { background-color: #79CD40 !important; }\
 td.decDfr { background-color: #FFFFA3 !important; }\
 td.decDel { background-color: #FF0000 !important; }\
 td.decSpm { background-color: #FF8A8A !important; }\
@@ -107,21 +108,21 @@ decisions = {
   },
   acceptDetails: {
     title: "Accept, details",
-    cssClass: "decAcc",
+    cssClass: "decAcD",
     action: "accept",
-    message: "Hello and thank you for your upload!\n\nPlease include in the description, how it was created. What software, which recording device, where were samples taken from? Date, time and location are also great for field recordings.\n\nTo find the edit page:\n1. Click on your sound TITLE at the top left on this page.\n2. Follow the EDIT SOUND INFORMATION link in the bottom right sidebar.\n\nThanks!"
+    message: "Hello and thank you for your upload!\n\nPlease include in the description, how it was created. What software, which recording device, where were samples taken from? Date, time and location are also great for field recordings.\n\nTo find the edit page:\n1. Click on your sound TITLE at the top right on this page.\n2. Follow the EDIT SOUND INFORMATION link in the bottom right sidebar.\n\nThanks!"
   },
   deferDetails: {
     title: "Defer, details",
     cssClass: "decDfr",
     action: "defer",
-    message: "Hello and thank you for your upload!\n\nPlease include in the description, how it was created. What software, which recording device, where were samples taken from? Date, time and location are also great for field recordings.\n\nTo find the edit page:\n1. Click on your sound TITLE at the top left on this page.\n2. Follow the EDIT SOUND INFORMATION link in the bottom right sidebar.\n\nThanks!"
+    message: "Hello and thank you for your upload!\n\nPlease include in the description, how it was created. What software, which recording device, where were samples taken from? Date, time and location are also great for field recordings.\n\nTo find the edit page:\n1. Click on your sound TITLE at the top right on this page.\n2. Follow the EDIT SOUND INFORMATION link in the bottom right sidebar.\n\nThanks!"
   },
   deferEnglish: {
     title: "Defer, English",
     cssClass: "decDfr",
     action: "defer",
-    message: "Hello and thank you for your upload!\n\nPlease add an English language description of the sound and how it was created.\n\nTo find the edit page:\n1. Click on your sound TITLE at the top left on this page.\n2. Follow the EDIT SOUND INFORMATION link in the bottom right sidebar.\n\nThanks!"
+    message: "Hello and thank you for your upload!\n\nPlease add an English language description of the sound and how it was created.\n\nTo find the edit page:\n1. Click on your sound TITLE at the top right on this page.\n2. Follow the EDIT SOUND INFORMATION link in the bottom right sidebar.\n\nThanks!"
   },
   deferSampleSynth: {
     title: "Defer, sample synth",
@@ -251,7 +252,7 @@ function setupDecisionsUser() {
             var username = $(".user-annotations-info p a").first().text();
 
             if (userNameField.text() == username) {
-              $(userNameField).removeClass("decNot decAcc decDfr decDel decSpm");
+              $(userNameField).removeClass("decNot decAcc decAcD decDfr decDel decSpm");
               $(userNameField).addClass(decisions[decision].cssClass);
               $(userNameField).attr("data-user-decision", decision);
               $(userNameField).attr("title", decisions[decision].title);
@@ -277,7 +278,7 @@ function updateDecisionsTickets(decisionsTickets) {
     var ticket = $(this).find("td:nth-child(1) a").attr("onclick").toString().split("tickets/")[1].split("/')")[0];
 
     // apply style
-    $(soundTitleField).removeClass("decNot decAcc decDfr decDel decSpm");
+    $(soundTitleField).removeClass("decNot decAcc decAcD decDfr decDel decSpm");
 
     if (typeof decisionsTickets[ticket] != "undefined") {
       $(soundTitleField).addClass(decisions[decisionsTickets[ticket]].cssClass);
@@ -366,7 +367,7 @@ chrome.storage.local.get('decisionsUsers', function(data) {
       var decision = decisionsUsers[username];
 
       // apply class
-      $(userNameField).removeClass("decNot decAcc decDfr decDel decSpm");
+      $(userNameField).removeClass("decNot decAcc decAcD decDfr decDel decSpm");
       $(userNameField).addClass(cssClass);
 
       // apply user decision data
@@ -438,7 +439,7 @@ chrome.storage.local.get('decisionsTickets', function(data) {
     if (typeof decisionsTickets[ticket] != "undefined") {
       var cssClass = decisions[decisionsTickets[ticket]].cssClass;
       var title = decisions[decisionsTickets[ticket]].title;
-      $(soundTitleField).removeClass("decNot decAcc decDfr decDel decSpm");
+      $(soundTitleField).removeClass("decNot decAcc decAcD decDfr decDel decSpm");
       $(soundTitleField).addClass(cssClass);
       $(soundTitleField).attr('title', title);
       $(this).children("td:nth-child(2)").find("input").prop('checked', true);

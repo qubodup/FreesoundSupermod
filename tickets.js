@@ -6,6 +6,7 @@
 $("<style type='text/css'>\
 .decNot { background-color: #CCCCCC !important; }\
 .decAcc { background-color: #63E75C !important; }\
+.decAcD { background-color: #79CD40 !important; }\
 .decDfr { background-color: #FFFFA3 !important; }\
 .decDel { background-color: #FF0000 !important; }\
 .decSpm { background-color: #FF8A8A !important; }\
@@ -24,7 +25,7 @@ decisionsMin = {
   },
   acceptDetails: {
     title: "Accept, details",
-    cssClass: "decAcc"
+    cssClass: "decAcD"
   },
   deferDetails: {
     title: "Defer, details",
