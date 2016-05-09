@@ -96,9 +96,6 @@ chrome.storage.local.get('decisionsUsers', function(data) {
   }
 });
 
-// add pending sounds link
-    usernameField.append('(<a href="/tickets/moderation/pending/' + username + '/">pending sounds</a>)');
-
 // add buttons
 $("#ticket-right form").after("<button class='decAcc' id='accept'>Accept</button>");
 $("#accept").after("<button class='decDfr' id='defer'>Defer</button>");
